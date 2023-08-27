@@ -1,17 +1,15 @@
 package middleware
 
 import (
-	// "log"
-	//"encoding/json"
 	"net/http"
-	//"github.com/Lalipopp4/avito/internal/service"
+
+	"github.com/Lalipopp4/avito/internal/logger"
 )
 
-type MiddlewareLayer struct{}
-
-func SegmentCheck(next http.HandlerFunc) http.HandlerFunc {
+// implementation of logging middleware layer
+func LoggingLay(next http.HandlerFunc, step string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		//
+		logger.Logger.Log()
 		next(w, r)
 	}
 }

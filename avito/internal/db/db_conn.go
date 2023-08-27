@@ -6,15 +6,18 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func NewDBConn() *sql.DB {
+// connection with PostgreSQL
+func newDBConn() *dbHandler {
 	conn := "user=postgres host=localhost password=postgres port=5432 dbname=avito sslmode=disable"
 	db, err := sql.Open("postgres", conn)
 	if err != nil {
 		panic(err)
 	}
-	return db
+	return &dbHandler{
+		db,
+	}
 }
 
-func Close(db *sql.DB) {
+func (db *dbHandler) Close() {
 	db.Close()
 }

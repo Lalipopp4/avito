@@ -2,43 +2,34 @@ package service
 
 import (
 	"context"
+	"encoding/csv"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
+	"os"
+	"strconv"
 	"time"
 
-	"github.com/Lalipopp4/avito/internal/db"
+	"github.com/Lalipopp4/avito/internal/logger"
 )
+
+type point struct {
+	userID      int
+	segmentName string
+}
 
 var (
-	// sql handler
-	DB = db.NewDBConn()
 	// map of added segments
 	segments = make(map[string]struct{})
+	// map of temporary segments for user
+	ttlUSers = make(map[time.Time][]point)
 )
-
-type segment struct {
-	Name string `json:"segmentName"`
-	Perc int    `json:"percent"`
-}
-
-type addUserRequest struct {
-	SegmentsToAdd   []string `json:"segmentsToAdd"`
-	SegmetsToDelete []string `json:"segmentsToDelete"`
-	UserID          int      `json:"userID"`
-}
-
-type userRequest struct {
-	SegmentName string `json:"segmentName"`
-	UserID      int    `json:"userID"`
-}
 
 // function to decode data in request
 func decode(d interface{}, w http.ResponseWriter, r *http.Request) error {
 	err := json.NewDecoder(r.Body).Decode(&d)
 	if err != nil {
-		log.Println(err)
+		logger.Logger.Log(err)
 		w.Write([]byte(error.Error(err)))
 		return err
 	}
@@ -50,19 +41,69 @@ func addSegment(w http.ResponseWriter, r *http.Request) {
 	var segment segment
 	err := decode(&segment, w, r)
 	if err != nil {
-		log.Println(err)
+		logger.Logger.Log(err)
 		return
 	}
 
 	//checking if segment already exists
-	if _, ok := segments[string(segment.Name)]; ok || string(segment.Name) == "" {
+	res, err := DB.Exec("SELECT * FROM segments WHERE name = $1", segment.Name)
+
+	if err != nil {
+		logger.Logger.Log(err)
+		w.Write([]byte("Error: error in SQL request.\n"))
+		return
+	}
+	if n, err := res.RowsAffected(); n > 0 || string(segment.Name) == "" || err != nil {
+		logger.Logger.Log("Error: this segment is already exists or empty request.\n")
 		w.Write([]byte("Error: this segment is already exists or empty request.\n"))
 		return
 	}
 
-	//logger.Logger.Log("POST", sg)
-	segments[segment.Name] = struct{}{}
-	log.Println(segment.Name + " added.")
+	ctx := context.Background()
+	tx, err := DB.BeginTx(ctx, nil)
+	if err != nil {
+		logger.Logger.Log(err)
+		w.Write([]byte("Error: error in SQL request.\n"))
+		return
+	}
+
+	_, err = tx.ExecContext(ctx, "INSERT INTO segments VALUES ($1)", segment.Name)
+	if err != nil {
+		logger.Logger.Log(err)
+		tx.Rollback()
+		w.Write([]byte("Error: error in SQL request.\n"))
+		return
+	}
+
+	res, err = DB.Exec("SELECT * FROM users")
+	n, err := res.RowsAffected()
+	for i := 0; i < int(n); i += int(n / int64(segment.Perc)) {
+		_, err = tx.ExecContext(ctx, `INSERT INTO "segmentHistory" ("userID", "segmentName", operation, "dateReq") VALUES ($1, $2, $3, $4)`,
+			i, segment.Name, 1, time.Now().Format(time.DateOnly))
+		if err != nil {
+			logger.Logger.Log(err)
+			tx.Rollback()
+			w.Write([]byte("Error: error in SQL request.\n"))
+			return
+		}
+
+		_, err = tx.ExecContext(ctx, `INSERT INTO "userSegments"("userID", "segmentName") VALUES ($1, $2)`, i, segment.Name)
+		if err != nil {
+			logger.Logger.Log(err)
+			tx.Rollback()
+			w.Write([]byte("Error: error in SQL request.\n"))
+			return
+		}
+
+		err = tx.Commit()
+		if err != nil {
+			logger.Logger.Log(err)
+			w.Write([]byte("Error: error in SQL request.\n"))
+			return
+		}
+	}
+
+	logger.Logger.Log(segment.Name + " added.\n")
 	w.Write([]byte(segment.Name + " added.\n"))
 }
 
@@ -77,6 +118,7 @@ func deleteSegment(w http.ResponseWriter, r *http.Request) {
 	//checking if segment doesn't exist
 	fmt.Println(segments)
 	if _, ok := segments[string(segment.Name)]; !ok || string(segment.Name) == "" {
+		logger.Logger.Log("Error: this segment doesn't exist or empty request.\n")
 		w.Write([]byte("Error: this segment doesn't exist or empty request.\n"))
 		return
 	}
@@ -87,11 +129,12 @@ func deleteSegment(w http.ResponseWriter, r *http.Request) {
 	ctx := context.Background()
 	tx, err := DB.BeginTx(ctx, nil)
 	if err != nil {
-		log.Println(err)
+		logger.Logger.Log(err)
 		return
 	}
 	rows, err := tx.QueryContext(ctx, `SELECT "userID" FROM "userSegments" WHERE "segmentName" = $1`, segment.Name)
 	if err != nil {
+		logger.Logger.Log(err)
 		tx.Rollback()
 		w.Write([]byte("Error: error in SQL request.\n"))
 		return
@@ -106,6 +149,7 @@ func deleteSegment(w http.ResponseWriter, r *http.Request) {
 	}
 	_, err = tx.ExecContext(ctx, `DELETE FROM "userSegments" WHERE "segmentName" = $1`, segment.Name)
 	if err != nil {
+		logger.Logger.Log(err)
 		tx.Rollback()
 		w.Write([]byte("Error: error in SQL request.\n"))
 		return
@@ -114,6 +158,7 @@ func deleteSegment(w http.ResponseWriter, r *http.Request) {
 		_, err = tx.ExecContext(ctx, `INSERT INTO "segmentHistory" ("userID", "segmentName", operation, "dateReq") VALUES ($1, $2, $3, $4)`,
 			val, segment.Name, 0, time.Now().Format(time.DateOnly))
 		if err != nil {
+			logger.Logger.Log(err)
 			tx.Rollback()
 			w.Write([]byte("Error: error in SQL request.\n"))
 			return
@@ -121,14 +166,14 @@ func deleteSegment(w http.ResponseWriter, r *http.Request) {
 	}
 	err = tx.Commit()
 	if err != nil {
-		log.Println(err)
+		logger.Logger.Log(err)
 		w.Write([]byte("Error: error in SQL request.\n"))
 		return
 	}
 	// ------
 
 	delete(segments, segment.Name)
-	//logger.Logger.Log("POST", sg)
+	logger.Logger.Log(segment.Name + " deleted.\n")
 	w.Write([]byte(segment.Name + " deleted.\n"))
 }
 
@@ -143,7 +188,7 @@ func addUser(w http.ResponseWriter, r *http.Request) {
 	// checking if segments from add list doesn't exist
 	for _, segment := range append(request.SegmentsToAdd, request.SegmetsToDelete...) {
 		if _, ok := segments[segment]; !ok {
-			log.Println("No segment")
+			logger.Logger.Log("Error: no needed segment.")
 			w.Write([]byte("Error: no such segments"))
 			return
 		}
@@ -156,7 +201,7 @@ func addUser(w http.ResponseWriter, r *http.Request) {
 	}
 	for _, val := range request.SegmetsToDelete {
 		if _, ok := intersection[val]; ok {
-			log.Println(err)
+			logger.Logger.Log(err)
 			w.Write([]byte("Error: common segments in add ad delete lists.\n"))
 			return
 		}
@@ -179,14 +224,15 @@ func addUser(w http.ResponseWriter, r *http.Request) {
 		ctx := context.Background()
 		tx, err := DB.BeginTx(ctx, nil)
 		if err != nil {
-			log.Println(err)
+			logger.Logger.Log(err)
+			w.Write([]byte("Error: error in SQL request.\n"))
 			return
 		}
 
 		_, err = tx.ExecContext(ctx, `INSERT INTO "segmentHistory" ("userID", "segmentName", operation, "dateReq") VALUES ($1, $2, $3, $4)`,
 			request.UserID, val, 1, time.Now().Format(time.DateOnly))
 		if err != nil {
-			log.Println(err, 1)
+			logger.Logger.Log(err)
 			tx.Rollback()
 			w.Write([]byte("Error: error in SQL request.\n"))
 			return
@@ -194,7 +240,7 @@ func addUser(w http.ResponseWriter, r *http.Request) {
 
 		_, err = tx.ExecContext(ctx, `INSERT INTO "userSegments"("userID", "segmentName") VALUES ($1, $2)`, request.UserID, val)
 		if err != nil {
-			log.Println(err, 2)
+			logger.Logger.Log(err)
 			tx.Rollback()
 			w.Write([]byte("Error: error in SQL request.\n"))
 			return
@@ -202,20 +248,22 @@ func addUser(w http.ResponseWriter, r *http.Request) {
 
 		err = tx.Commit()
 		if err != nil {
-			log.Println(err, 3)
+			logger.Logger.Log(err)
 			w.Write([]byte("Error: error in SQL request.\n"))
 			return
 		}
 
+		//ttlUSers[time.Now()+time.Day()]
 		// ------
 	}
-
+	logger.Logger.Log("Segments added.\n")
 	w.Write([]byte("Segments added.\n"))
 
 	// deleting user from segments
 	for _, val := range request.SegmetsToDelete {
 		var n int
-		// checking if user already in segment
+
+		// checking if user is already in segment
 		rows, err := DB.Query(`SELECT COUNT(*) FROM "userSegments" WHERE "segmentName" = $1`, val)
 		if rows.Scan(&n); n == 0 || err != nil {
 			continue
@@ -226,14 +274,14 @@ func addUser(w http.ResponseWriter, r *http.Request) {
 		ctx := context.Background()
 		tx, err := DB.BeginTx(ctx, nil)
 		if err != nil {
-			log.Println(err)
+			logger.Logger.Log(err)
 			return
 		}
 
 		_, err = tx.ExecContext(ctx, `INSERT INTO "segmentHistory" ("userID", "segmentName", operation, "dateReq") VALUES ($1, $2, $3, $4)`,
 			request.UserID, val, 0, time.Now().Format(time.DateOnly))
 		if err != nil {
-			log.Println(err, 4)
+			logger.Logger.Log(err)
 			tx.Rollback()
 			w.Write([]byte("Error: error in SQL request.\n"))
 			return
@@ -241,7 +289,7 @@ func addUser(w http.ResponseWriter, r *http.Request) {
 
 		_, err = tx.ExecContext(ctx, `DELETE FROM "userSegments" WHERE "segmentName" = $1`, val)
 		if err != nil {
-			log.Println(err, 5)
+			logger.Logger.Log(err)
 			tx.Rollback()
 			w.Write([]byte("Error: error in SQL request.\n"))
 			return
@@ -249,7 +297,7 @@ func addUser(w http.ResponseWriter, r *http.Request) {
 
 		err = tx.Commit()
 		if err != nil {
-			log.Println(err)
+			logger.Logger.Log(err)
 			w.Write([]byte("Error: error in SQL request.\n"))
 			return
 		}
@@ -257,20 +305,22 @@ func addUser(w http.ResponseWriter, r *http.Request) {
 		// ------
 	}
 
+	logger.Logger.Log("Segments deleted.\n")
 	w.Write([]byte("Segments deleted.\n"))
 }
 
-// searching for users active segments
+// searching for active segments of user
 func activeUserSegments(w http.ResponseWriter, r *http.Request) {
 	var userID userRequest
 	err := decode(&userID, w, r)
 	if err != nil {
 		return
 	}
+
 	rows, err := DB.Query(`SELECT "segmentName" FROM "userSegments" WHERE "userID" = $1`, userID.UserID)
 	if err != nil {
 		w.Write([]byte("Error: error in SQL request.\n"))
-		log.Println(err)
+		logger.Logger.Log(err)
 		return
 	}
 	var (
@@ -284,16 +334,54 @@ func activeUserSegments(w http.ResponseWriter, r *http.Request) {
 	response, err := json.Marshal(userSegments)
 	if err != nil {
 		w.Write([]byte("Error: error in json encoding.\n"))
+		logger.Logger.Log(err)
 		return
 	}
+
+	logger.Logger.Log(response)
 	w.Write(response)
 }
 
-func userHistory(w http.ResponseWriter, r *http.Request) {
-	var userReq userRequest
-	err := decode(&userReq, w, r)
+func segmentHistory(w http.ResponseWriter, r *http.Request) {
+	var historyReq historyRequest
+	err := decode(&historyReq, w, r)
 	if err != nil {
 		return
+	}
+	rows, err := DB.Query(`SELECT "userID", "SegmentName", operation, "dateReq" FROM "segmentHistory"
+							WHERE "dateReq" = $1`, historyReq.Date)
+	if err != nil {
+		w.Write([]byte("Error: error in SQL request.\n"))
+		logger.Logger.Log(err)
+		return
+	}
+	f, err := os.Create("github.com/Lalipopp4/avito/pkg/files/history.csv")
+	defer f.Close()
+
+	if err != nil {
+		w.Write([]byte("Error: error in openning file.\n"))
+		logger.Logger.Log(err)
+		return
+	}
+	var (
+		id              int
+		name, date, opS string
+		op              bool
+	)
+	csvW := csv.NewWriter(f)
+	defer csvW.Flush()
+	for rows.Next() {
+		rows.Scan(&id, &name, &op, &date)
+		if op {
+			opS = "Adding"
+		} else {
+			opS = "Deleting"
+		}
+		if err := csvW.Write([]string{strconv.Itoa(id), name, opS, date}); err != nil {
+			w.Write([]byte("Error: error with file.\n"))
+			logger.Logger.Log(err)
+			return
+		}
 	}
 
 }
