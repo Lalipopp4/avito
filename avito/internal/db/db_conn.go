@@ -1,15 +1,22 @@
 package db
 
 import (
-	"database/sql"
+	"time"
 
-	_ "github.com/lib/pq"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-// connection with PostgreSQL
+type dbHandler struct {
+	cur *gorm.DB
+}
+
+var DB = newDBConn()
+
+// conn function for DB
 func newDBConn() *dbHandler {
 	conn := "user=postgres host=localhost password=postgres port=5432 dbname=avito sslmode=disable"
-	db, err := sql.Open("postgres", conn)
+	db, err := gorm.Open(postgres.Open(conn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
@@ -18,6 +25,15 @@ func newDBConn() *dbHandler {
 	}
 }
 
-func (db *dbHandler) Close() {
-	db.Close()
+type historyReq struct {
+	UserID        int
+	SegmentName   string
+	Operation     bool
+	Timestamp_req time.Time
+}
+
+type segReq struct {
+	UserID      int
+	SegmentName string
+	TTL         string
 }

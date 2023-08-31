@@ -9,7 +9,7 @@ import (
 // implementation of logging middleware layer
 func LoggingLay(next http.HandlerFunc, step string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		logger.Logger.Log()
+		logger.Logger.Log(step)
 		next(w, r)
 	}
 }

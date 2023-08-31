@@ -1,35 +1,15 @@
 package service
 
 import (
-	//"encoding/json"
-	//"log"
 	"net/http"
 
-	"github.com/Lalipopp4/avito/internal/db"
 	"github.com/Lalipopp4/avito/internal/logger"
 	"github.com/Lalipopp4/avito/internal/middleware"
 	"github.com/gorilla/mux"
 )
 
-type segment struct {
-	Name string `json:"segmentName"`
-	Perc int    `json:"percent"`
-}
-
-type addUserRequest struct {
-	SegmentsToAdd   []string `json:"segmentsToAdd"`
-	SegmetsToDelete []string `json:"segmentsToDelete"`
-	UserID          int      `json:"userID"`
-	TTL             string   `json:"ttl"`
-}
-
-type userRequest struct {
-	UserID int `json:"userID"`
-}
-
-type historyRequest struct {
-	Date string `json:"date"`
-}
+// channel that is connected with ttl goroutine
+var c = make(chan int, 1)
 
 // server handlers
 func Handle() {
@@ -43,9 +23,13 @@ func Handle() {
 
 	rtr.HandleFunc("/activeusersegments", middleware.LoggingLay(activeUserSegments, "List of active user segments.")).Methods("POST")
 
-	//rtr.HandleFunc("/userhistory", mw.MiddlewareLayer()).Methods("GET")
+	rtr.HandleFunc("/segmenthistory", middleware.LoggingLay(segmentHistory, "Watching history of segments.")).Methods("POST")
 
-	go checkTTL()
+	// url with csv file
+	rtr.HandleFunc("/csvhistory", middleware.LoggingLay(csvHistory, "Watching csv file.")).Methods("GET")
+
+	// goroutine that handles list of ttl users
+	go checkTTL(c)
 
 	http.Handle("/", rtr)
 
@@ -53,6 +37,6 @@ func Handle() {
 
 // closing all connections
 func Stop() {
-	db.DB.Close()
+	c <- 1
 	logger.Logger.Close()
 }

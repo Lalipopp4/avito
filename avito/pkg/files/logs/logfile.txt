@@ -1,0 +1,43 @@
+2023/08/31 20:27:01 Server is running...
+2023/08/31 20:28:56 Adding segment.
+2023/08/31 20:28:56 http: panic serving [::1]:35107: runtime error: index out of range [0] with length 0
+goroutine 20 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xe8ad80?, 0xc000388078?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:66 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc000274320, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:50
+github.com/Lalipopp4/avito/internal/service.addSegment({0xfa0430, 0xc0002101c0}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:64 +0x6c7
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xfa0430, 0xc0002101c0}, 0xc0002136b0?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc000278100?, {0xfa0430?, 0xc0002101c0?}, 0xae3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0002e8000, {0xfa0430, 0xc0002101c0}, 0xc000278000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x860b25?, {0xfa0430, 0xc0002101c0}, 0xc000278000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xf9dff0?}, {0xfa0430?, 0xc0002101c0?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000d0090, {0xfa1a48, 0xc0002b2f60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 20:30:00 Adding segment.
+2023/08/31 20:30:00 Error: this segment is already exists or empty request.
+2023/08/31 20:31:35 Adding segment.
+2023/08/31 20:31:35 Error: this segment is already exists or empty request.
+2023/08/31 20:38:22 Adding segment.
+2023/08/31 20:38:22 Error: this segment is already exists or empty request.
+2023/08/31 20:45:34 Deleting segment.
+2023/08/31 20:45:34 invalid character '}' looking for beginning of object key string
+2023/08/31 20:45:46 Deleting segment.
+2023/08/31 20:45:46 Error: this segment doesn't exist or empty request.
+
+2023/08/31 20:48:57 Adding user, editting his segments.
+2023/08/31 20:48:57 <nil>

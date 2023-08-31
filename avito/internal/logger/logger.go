@@ -12,10 +12,10 @@ type logger struct {
 	LogFile *os.File
 }
 
-var Logger = NewLogger("logger/logfile.txt")
+var Logger = NewLogger("pkg/files/logs/logfile.txt")
 
 func NewLogger(filename string) *logger {
-	file, err := os.OpenFile("internal/logger/logfile.txt", os.O_APPEND|os.O_WRONLY, 0600)
+	file, err := os.OpenFile(filename, os.O_APPEND|os.O_WRONLY, 0600)
 	if err != nil {
 		log.Println(err)
 		return nil
