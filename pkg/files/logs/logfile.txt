@@ -1,0 +1,773 @@
+2023/08/31 20:27:01 Server is running...
+2023/08/31 20:28:56 Adding segment.
+2023/08/31 20:28:56 http: panic serving [::1]:35107: runtime error: index out of range [0] with length 0
+goroutine 20 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xe8ad80?, 0xc000388078?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:66 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc000274320, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:50
+github.com/Lalipopp4/avito/internal/service.addSegment({0xfa0430, 0xc0002101c0}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:64 +0x6c7
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xfa0430, 0xc0002101c0}, 0xc0002136b0?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc000278100?, {0xfa0430?, 0xc0002101c0?}, 0xae3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0002e8000, {0xfa0430, 0xc0002101c0}, 0xc000278000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x860b25?, {0xfa0430, 0xc0002101c0}, 0xc000278000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xf9dff0?}, {0xfa0430?, 0xc0002101c0?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000d0090, {0xfa1a48, 0xc0002b2f60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 20:30:00 Adding segment.
+2023/08/31 20:30:00 Error: this segment is already exists or empty request.
+2023/08/31 20:31:35 Adding segment.
+2023/08/31 20:31:35 Error: this segment is already exists or empty request.
+2023/08/31 20:38:22 Adding segment.
+2023/08/31 20:38:22 Error: this segment is already exists or empty request.
+2023/08/31 20:45:34 Deleting segment.
+2023/08/31 20:45:34 invalid character '}' looking for beginning of object key string
+2023/08/31 20:45:46 Deleting segment.
+2023/08/31 20:45:46 Error: this segment doesn't exist or empty request.
+
+2023/08/31 20:48:57 Adding user, editting his segments.
+2023/08/31 20:48:57 <nil>
+2023/08/31 20:53:29 Adding segment.
+2023/08/31 20:53:29 http: panic serving [::1]:35130: runtime error: index out of range [0] with length 0
+goroutine 39 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xe8ad80?, 0xc000297f98?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:66 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0002eaa00, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:50
+github.com/Lalipopp4/avito/internal/service.addSegment({0xfa0430, 0xc0002c02a0}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:64 +0x6c7
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xfa0430, 0xc0002c02a0}, 0xc0002b37a0?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc0002fa800?, {0xfa0430?, 0xc0002c02a0?}, 0xae3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0002e8000, {0xfa0430, 0xc0002c02a0}, 0xc0002fa700)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x860b25?, {0xfa0430, 0xc0002c02a0}, 0xc0002fa700)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xf9dff0?}, {0xfa0430?, 0xc0002c02a0?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc00027c5a0, {0xfa1a48, 0xc0002b2f60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 20:53:38 Adding segment.
+2023/08/31 20:53:38 Error: this segment is already exists or empty request.
+2023/08/31 20:53:40 Adding segment.
+2023/08/31 20:53:40 Error: this segment is already exists or empty request.
+2023/08/31 20:53:46 Adding segment.
+2023/08/31 20:53:46 http: panic serving [::1]:35977: runtime error: index out of range [0] with length 0
+goroutine 24 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xe8ad80?, 0xc0000e4120?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:66 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0000b5ae0, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:50
+github.com/Lalipopp4/avito/internal/service.addSegment({0xfa0430, 0xc000210380}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:64 +0x6c7
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xfa0430, 0xc000210380}, 0xc0003ae990?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc000278900?, {0xfa0430?, 0xc000210380?}, 0xae3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0002e8000, {0xfa0430, 0xc000210380}, 0xc000278800)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x860b25?, {0xfa0430, 0xc000210380}, 0xc000278800)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xf9dff0?}, {0xfa0430?, 0xc000210380?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000d05a0, {0xfa1a48, 0xc0002b2f60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 20:55:27 Server is stopped
+2023/08/31 20:55:39 Server is running...
+2023/08/31 20:55:49 Adding segment.
+2023/08/31 20:55:49 http: panic serving [::1]:36086: runtime error: index out of range [0] with length 0
+goroutine 22 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0x105ad80?, 0xc0003c8000?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:66 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc000382280, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:50
+github.com/Lalipopp4/avito/internal/service.addSegment({0x1170430, 0xc0002d8000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:65 +0x713
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0x1170430, 0xc0002d8000}, 0xc000286660?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc0002dc000?, {0x1170430?, 0xc0002d8000?}, 0xcb3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000dc000, {0x1170430, 0xc0002d8000}, 0xc00024c000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0xa30b25?, {0x1170430, 0xc0002d8000}, 0xc00024c000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0x116dff0?}, {0x1170430?, 0xc0002d8000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000c61b0, {0x1171a48, 0xc0000acf60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 20:57:46 Server is stopped
+2023/08/31 20:58:01 Server is running...
+2023/08/31 20:58:03 Adding segment.
+2023/08/31 20:58:04 Error: this segment is already exists or empty request.
+2023/08/31 20:58:11 Adding segment.
+2023/08/31 20:58:11 http: panic serving [::1]:36145: runtime error: index out of range [0] with length 0
+goroutine 18 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xa8ad80?, 0xc0003c6000?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc000382280, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0xba0450, 0xc00013c540}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:65 +0x713
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xba0450, 0xc00013c540}, 0xc00020fc80?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc000262400?, {0xba0450?, 0xc00013c540?}, 0x6e3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc000000600, {0xba0450, 0xc00013c540}, 0xc000262300)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x460b25?, {0xba0450, 0xc00013c540}, 0xc000262300)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xb9e010?}, {0xba0450?, 0xc00013c540?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0002ac090, {0xba1a68, 0xc000292150})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 20:58:24 Server is stopped
+2023/08/31 20:58:35 Server is running...
+2023/08/31 20:58:38 Adding segment.
+2023/08/31 20:58:38 http: panic serving [::1]:36233: runtime error: index out of range [0] with length 0
+goroutine 50 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0x116ad80?, 0xc000034a20?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0001e10e0, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0x1280450, 0xc00013c380}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:65 +0x713
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0x1280450, 0xc00013c380}, 0xc00020e450?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc00024c000?, {0x1280450?, 0xc00013c380?}, 0xdc3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000dc000, {0x1280450, 0xc00013c380}, 0xc0003a8100)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0xb40b25?, {0x1280450, 0xc00013c380}, 0xc0003a8100)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0x127e010?}, {0x1280450?, 0xc00013c380?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc00039c090, {0x1281a68, 0xc0000acf60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:00:03 Server is stopped
+2023/08/31 21:00:14 Server is running...
+2023/08/31 21:00:19 Adding segment.
+2023/08/31 21:00:19 http: panic serving [::1]:36360: runtime error: index out of range [0] with length 0
+goroutine 22 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0x11bad80?, 0xc0000349f0?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ccb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ccb10, 0xc00024e6e0, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0x12d0490, 0xc00013c380}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:66 +0x767
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0x12d0490, 0xc00013c380}, 0xc00020e900?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc000258000?, {0x12d0490?, 0xc00013c380?}, 0xe13a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000de000, {0x12d0490, 0xc00013c380}, 0xc0000f0200)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0xb90b25?, {0x12d0490, 0xc00013c380}, 0xc0000f0200)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0x12ce050?}, {0x12d0490?, 0xc00013c380?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000c81b0, {0x12d1aa8, 0xc0000aef60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:00:58 Server is stopped
+2023/08/31 21:01:08 Server is running...
+2023/08/31 21:01:12 Adding segment.
+2023/08/31 21:01:12 http: panic serving [::1]:36437: runtime error: index out of range [0] with length 0
+goroutine 37 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xc8ad80?, 0xc0000349c0?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0001e0f00, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0xda04f0, 0xc000326000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:67 +0x7df
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xda04f0, 0xc000326000}, 0xc000304180?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc00032e000?, {0xda04f0?, 0xc000326000?}, 0x8e3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0002d0000, {0xda04f0, 0xc000326000}, 0xc00024c000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x660b25?, {0xda04f0, 0xc000326000}, 0xc00024c000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xd9e0b0?}, {0xda04f0?, 0xc000326000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0002b41b0, {0xda1b08, 0xc000288ea0})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:01:53 Server is stopped
+2023/08/31 21:02:03 Server is running...
+2023/08/31 21:02:06 Adding segment.
+2023/08/31 21:02:06 http: panic serving [::1]:36532: runtime error: index out of range [0] with length 0
+goroutine 21 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0x66ad80?, 0xc000034198?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001feae0?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001feae0, 0xc000380320, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0x7804f0, 0xc000392000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:67 +0x81f
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0x7804f0, 0xc000392000}, 0xc000042240?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc000396000?, {0x7804f0?, 0xc000392000?}, 0x2c3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000dc000, {0x7804f0, 0xc000392000}, 0xc0000ee100)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x40b25?, {0x7804f0, 0xc000392000}, 0xc0000ee100)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0x77e0b0?}, {0x7804f0?, 0xc000392000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc000200750, {0x781b08, 0xc0000acf60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:02:26 Server is stopped
+2023/08/31 21:02:35 Server is running...
+2023/08/31 21:02:37 Adding segment.
+2023/08/31 21:02:37 http: panic serving [::1]:36573: runtime error: index out of range [0] with length 0
+goroutine 24 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0x98ad80?, 0xc0002ca090?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0002a1950, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0xaa04f0, 0xc0002de000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:67 +0x79c
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xaa04f0, 0xc0002de000}, 0xc000286720?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc0002e2000?, {0xaa04f0?, 0xc0002de000?}, 0x5e3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000de000, {0xaa04f0, 0xc0002de000}, 0xc000248000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x360b25?, {0xaa04f0, 0xc0002de000}, 0xc000248000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xa9e0b0?}, {0xaa04f0?, 0xc0002de000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000c81b0, {0xaa1b08, 0xc0000aef60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:02:41 Adding segment.
+2023/08/31 21:02:42 Error: this segment is already exists or empty request.
+2023/08/31 21:03:31 Server is stopped
+2023/08/31 21:03:41 Server is running...
+2023/08/31 21:03:43 Adding segment.
+2023/08/31 21:03:43 http: panic serving [::1]:36651: runtime error: index out of range [0] with length 0
+goroutine 38 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0x131ad80?, 0xc000034198?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001feae0?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001feae0, 0xc0002a1900, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0x14304b0, 0xc0002c6000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:68 +0x79c
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0x14304b0, 0xc0002c6000}, 0xc000042690?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc0002ca000?, {0x14304b0?, 0xc0002c6000?}, 0xf73a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000dc000, {0x14304b0, 0xc0002c6000}, 0xc000278000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0xcf0b25?, {0x14304b0, 0xc0002c6000}, 0xc000278000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0x142e070?}, {0x14304b0?, 0xc0002c6000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000c61b0, {0x1431ac8, 0xc0000acf60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:04:18 Server is stopped
+2023/08/31 21:04:35 Server is running...
+2023/08/31 21:04:38 Adding segment.
+2023/08/31 21:04:38 http: panic serving [::1]:36724: runtime error: index out of range [0] with length 0
+goroutine 22 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xa1ad80?, 0xc0002c4078?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0002a1900, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0xb304b0, 0xc0002d8000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:68 +0x790
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xb304b0, 0xc0002d8000}, 0xc000286660?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc0002dc000?, {0xb304b0?, 0xc0002d8000?}, 0x673a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000dc000, {0xb304b0, 0xc0002d8000}, 0xc00024c000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x3f0b25?, {0xb304b0, 0xc0002d8000}, 0xc00024c000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xb2e070?}, {0xb304b0?, 0xc0002d8000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000c61b0, {0xb31ac8, 0xc0000acf60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:05:00 Server is stopped
+2023/08/31 21:05:12 Server is running...
+2023/08/31 21:05:17 Adding segment.
+2023/08/31 21:05:17 http: panic serving [::1]:36802: runtime error: index out of range [0] with length 0
+goroutine 9 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0x7cad80?, 0xc0002c40a8?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc000188ae0?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc000188ae0, 0xc0002a1900, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0x8e0450, 0xc0002d8000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:64 +0x6c7
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0x8e0450, 0xc0002d8000}, 0xc000286660?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc0002dc000?, {0x8e0450?, 0xc0002d8000?}, 0x423a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000000c0, {0x8e0450, 0xc0002d8000}, 0xc000300000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x1a0b25?, {0x8e0450, 0xc0002d8000}, 0xc000300000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0x8de010?}, {0x8e0450?, 0xc0002d8000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc00022a1b0, {0x8e1a68, 0xc000042f90})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:06:27 Server is stopped
+2023/08/31 21:06:37 Server is running...
+2023/08/31 21:06:42 Adding segment.
+2023/08/31 21:06:42 http: panic serving [::1]:37101: runtime error: index out of range [0] with length 0
+goroutine 12 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xefad80?, 0xc0000d0090?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0000b1900, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0x1010450, 0xc0000e4000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:64 +0x6e7
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0x1010450, 0xc0000e4000}, 0xc000096660?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc0000e8000?, {0x1010450?, 0xc0000e4000?}, 0xb53a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc000000600, {0x1010450, 0xc0000e4000}, 0xc000260200)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x8d0b25?, {0x1010450, 0xc0000e4000}, 0xc000260200)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0x100e010?}, {0x1010450?, 0xc0000e4000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0001d06c0, {0x1011a68, 0xc00020f230})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:07:50 Server is stopped
+2023/08/31 21:08:04 Server is running...
+2023/08/31 21:08:07 Adding segment.
+2023/08/31 21:08:07 http: panic serving [::1]:37368: runtime error: index out of range [0] with length 0
+goroutine 22 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xc5ad80?, 0xc000034a08?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0001e1130, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0xd70450, 0xc00013c380}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:66 +0x73f
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xd70450, 0xc00013c380}, 0xc00020e4e0?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc00024a100?, {0xd70450?, 0xc00013c380?}, 0x8b3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000dc000, {0xd70450, 0xc00013c380}, 0xc00024a000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x630b25?, {0xd70450, 0xc00013c380}, 0xc00024a000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xd6e010?}, {0xd70450?, 0xc00013c380?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000c61b0, {0xd71a68, 0xc0000acf60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:08:29 Server is stopped
+2023/08/31 21:08:46 Server is running...
+2023/08/31 21:08:46 Adding segment.
+2023/08/31 21:08:46 http: panic serving [::1]:37398: runtime error: index out of range [0] with length 0
+goroutine 11 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xd4ad80?, 0xc0000d0048?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc000095900, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0xe60490, 0xc0000e4000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:67 +0x787
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xe60490, 0xc0000e4000}, 0xc00009a660?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc0000e8000?, {0xe60490?, 0xc0000e4000?}, 0x9a3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc000000600, {0xe60490, 0xc0000e4000}, 0xc00021e000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x720b25?, {0xe60490, 0xc0000e4000}, 0xc00021e000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xe5e050?}, {0xe60490?, 0xc0000e4000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0001d0630, {0xe61aa8, 0xc000287230})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:09:29 Adding segment.
+2023/08/31 21:09:29 http: panic serving [::1]:37513: runtime error: index out of range [0] with length 0
+goroutine 23 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xd4ad80?, 0xc000238030?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc000216320, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0xe60490, 0xc000242000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:67 +0x787
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xe60490, 0xc000242000}, 0xc0002142a0?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc00021e200?, {0xe60490?, 0xc000242000?}, 0x9a3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc000000600, {0xe60490, 0xc000242000}, 0xc00021e100)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x720b25?, {0xe60490, 0xc000242000}, 0xc00021e100)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xe5e050?}, {0xe60490?, 0xc000242000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000d25a0, {0xe61aa8, 0xc000287230})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:10:14 Server is stopped
+2023/08/31 21:10:24 Server is running...
+2023/08/31 21:10:30 Adding segment.
+2023/08/31 21:10:30 http: panic serving [::1]:37596: runtime error: index out of range [0] with length 0
+goroutine 22 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0x138ad80?, 0xc0002c4060?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0002a1900, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0x14a0450, 0xc0002d8000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:66 +0x713
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0x14a0450, 0xc0002d8000}, 0xc000286660?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc0002dc000?, {0x14a0450?, 0xc0002d8000?}, 0xfe3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000dc000, {0x14a0450, 0xc0002d8000}, 0xc00024a000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0xd60b25?, {0x14a0450, 0xc0002d8000}, 0xc00024a000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0x149e010?}, {0x14a0450?, 0xc0002d8000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000c61b0, {0x14a1a68, 0xc0000acf60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:10:48 Server is stopped
+2023/08/31 21:10:59 Server is running...
+2023/08/31 21:11:04 Adding segment.
+2023/08/31 21:11:04 http: panic serving [::1]:37604: runtime error: index out of range [0] with length 0
+goroutine 24 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xc6ad80?, 0xc000302090?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001feae0?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001feae0, 0xc00032d900, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0xd804b0, 0xc00035e000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:67 +0x77f
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xd804b0, 0xc00035e000}, 0xc000312660?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc000362000?, {0xd804b0?, 0xc00035e000?}, 0x8c3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc00015e540, {0xd804b0, 0xc00035e000}, 0xc0002d4000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x640b25?, {0xd804b0, 0xc00035e000}, 0xc0002d4000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xd7e070?}, {0xd804b0?, 0xc00035e000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc000200750, {0xd81ac8, 0xc0001ffd40})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:11:46 Server is stopped
+2023/08/31 21:11:55 Server is running...
+2023/08/31 21:11:59 Adding segment.
+2023/08/31 21:11:59 http: panic serving [::1]:37633: runtime error: index out of range [0] with length 0
+goroutine 7 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0x99ad80?, 0xc0000349c0?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0001e1400, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0xab04d0, 0xc0003b2000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:68 +0x7f3
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xab04d0, 0xc0003b2000}, 0xc0003821e0?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc00038e100?, {0xab04d0?, 0xc0003b2000?}, 0x5f3a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc00025c000, {0xab04d0, 0xc0003b2000}, 0xc00038e000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x370b25?, {0xab04d0, 0xc0003b2000}, 0xc00038e000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xaae090?}, {0xab04d0?, 0xc0003b2000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0001d0630, {0xab1ae8, 0xc0001cef30})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:12:28 Server is stopped
+2023/08/31 21:12:38 Server is running...
+2023/08/31 21:12:43 Adding segment.
+2023/08/31 21:12:43 http: panic serving [::1]:37654: runtime error: index out of range [0] with length 0
+goroutine 22 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0xecad80?, 0xc0000349c0?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0002526e0, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0xfe04d0, 0xc0002b2000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:68 +0x7d3
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0xfe04d0, 0xc0002b2000}, 0xc0002841e0?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc00028e100?, {0xfe04d0?, 0xc0002b2000?}, 0xb23a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0000dc000, {0xfe04d0, 0xc0002b2000}, 0xc00028e000)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0x8a0b25?, {0xfe04d0, 0xc0002b2000}, 0xc00028e000)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0xfde090?}, {0xfe04d0?, 0xc0002b2000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0000c61b0, {0xfe1ae8, 0xc0000acf60})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:12:56 Server is stopped
+2023/08/31 21:13:04 Server is running...
+2023/08/31 21:13:11 Adding segment.
+2023/08/31 21:13:11 http: panic serving [::1]:37664: runtime error: index out of range [0] with length 0
+goroutine 23 [running]:
+net/http.(*conn).serve.func1()
+	C:/Users/anton/Go/src/net/http/server.go:1868 +0xb9
+panic({0x15ead80?, 0xc000226060?})
+	C:/Users/anton/Go/src/runtime/panic.go:920 +0x270
+github.com/Lalipopp4/avito/internal/service.addSegment.dbHandler.ExecSegments.func1(0xc0001ceb10?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:68 +0xf07
+gorm.io/gorm.(*DB).Transaction(0xc0001ceb10, 0xc0002302d0, {0x0, 0x0, 0x0})
+	C:/Users/anton/Go/pkg/mod/gorm.io/gorm@v1.25.4/finisher_api.go:647 +0x27e
+github.com/Lalipopp4/avito/internal/db.dbHandler.ExecSegments(...)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/db/db.go:52
+github.com/Lalipopp4/avito/internal/service.addSegment({0x17004d0, 0xc000236000}, 0x1?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/service/serviceAPI.go:68 +0x7f3
+github.com/Lalipopp4/avito/internal/service.Handle.LoggingLay.func1({0x17004d0, 0xc000236000}, 0xc000218180?)
+	C:/Users/anton/Go/src/github.com/Lalipopp4/avito/internal/middleware/middleware.go:13 +0x8e
+net/http.HandlerFunc.ServeHTTP(0xc00023a000?, {0x17004d0?, 0xc000236000?}, 0x1243a1e?)
+	C:/Users/anton/Go/src/net/http/server.go:2136 +0x29
+github.com/gorilla/mux.(*Router).ServeHTTP(0xc0002b6000, {0x17004d0, 0xc000236000}, 0xc0002c8200)
+	C:/Users/anton/Go/pkg/mod/github.com/gorilla/mux@v1.8.0/mux.go:210 +0x1c5
+net/http.(*ServeMux).ServeHTTP(0xfc0b25?, {0x17004d0, 0xc000236000}, 0xc0002c8200)
+	C:/Users/anton/Go/src/net/http/server.go:2514 +0x142
+net/http.serverHandler.ServeHTTP({0x16fe090?}, {0x17004d0?, 0xc000236000?}, 0x6?)
+	C:/Users/anton/Go/src/net/http/server.go:2938 +0x8e
+net/http.(*conn).serve(0xc0002a21b0, {0x1701ae8, 0xc0002c2450})
+	C:/Users/anton/Go/src/net/http/server.go:2009 +0x5f4
+created by net/http.(*Server).Serve in goroutine 1
+	C:/Users/anton/Go/src/net/http/server.go:3086 +0x5cb
+2023/08/31 21:13:18 Server is stopped
+2023/08/31 21:14:02 Server is running...
+2023/08/31 21:14:05 Adding segment.
+2023/08/31 21:14:05 AVITO_SALE_5 added.
+2023/08/31 21:15:38 Adding segment.
+2023/08/31 21:15:38 Error: this segment is already exists or empty request.
+2023/08/31 21:16:36 Adding segment.
+2023/08/31 21:16:36  added.
+2023/08/31 21:17:26 Server is stopped
+2023/08/31 21:17:35 Server is running...
+2023/08/31 21:17:38 Adding segment.
+2023/08/31 21:17:38 Error: this segment is already exists or empty request.
+2023/08/31 21:19:48 Deleting segment.
+2023/08/31 21:19:48 AVITO_SALE_5 deleted.
+2023/08/31 21:20:36 Deleting segment.
+2023/08/31 21:20:36 Error: this segment doesn't exist or empty request.
+
+2023/08/31 21:21:25 List of active user segments.
+2023/08/31 21:21:25 [91 34 66 34 93]
+2023/08/31 21:21:30 List of active user segments.
+2023/08/31 21:21:30 [91 34 65 65 65 34 44 34 65 65 65 34 44 34 65 65 97 34 44 34 65 65 65 34 44 34 65 65 97 97 34 44 34 66 34 44 34 65 65 65 34 44 34 65 65 65 34 44 34 65 65 65 34 93]
+2023/08/31 21:21:37 List of active user segments.
+2023/08/31 21:21:37 [91 93]
+2023/08/31 21:21:45 List of active user segments.
+2023/08/31 21:21:45 [91 34 65 34 44 34 34 93]
+2023/08/31 21:21:50 List of active user segments.
+2023/08/31 21:21:50 [91 34 66 34 93]
+2023/08/31 21:21:54 List of active user segments.
+2023/08/31 21:21:54 [91 34 66 34 93]
+2023/08/31 21:21:59 List of active user segments.
+2023/08/31 21:21:59 [91 34 66 34 93]
+2023/08/31 21:22:03 List of active user segments.
+2023/08/31 21:22:03 [91 34 66 34 93]
+2023/08/31 21:22:07 List of active user segments.
+2023/08/31 21:22:07 [91 34 65 65 65 34 44 34 65 65 65 34 44 34 65 65 97 34 44 34 65 65 65 34 44 34 65 65 97 97 34 44 34 66 34 44 34 65 65 65 34 44 34 65 65 65 34 44 34 65 65 65 34 93]
+2023/08/31 21:22:12 List of active user segments.
+2023/08/31 21:22:13 [91 34 66 34 93]
+2023/08/31 21:22:18 List of active user segments.
+2023/08/31 21:22:18 [91 34 66 34 44 34 65 97 97 34 93]
+2023/08/31 21:23:11 Adding segment.
+2023/08/31 21:23:11 AVITO_1 added.
+2023/08/31 21:23:15 Adding segment.
+2023/08/31 21:23:15 AVITO_2 added.
+2023/08/31 21:23:50 Adding user, editting his segments.
+2023/08/31 21:23:50 Segments added.
+2023/08/31 21:23:50 Segments deleted.
+2023/08/31 21:25:12 Adding user, editting his segments.
+2023/08/31 21:25:12 Segments added.
+2023/08/31 21:25:12 Segments deleted.
+2023/08/31 21:25:42 Adding user, editting his segments.
+2023/08/31 21:25:42 Error: no needed segment.
+2023/08/31 21:26:31 Adding user, editting his segments.
+2023/08/31 21:26:31 Segments added.
+2023/08/31 21:26:31 Segments deleted.
+2023/08/31 21:27:51 Adding user, editting his segments.
+2023/08/31 21:27:51 <nil>
+2023/08/31 21:29:57 List of active user segments.
+2023/08/31 21:29:57 [91 34 65 65 65 34 44 34 65 65 65 34 44 34 65 65 97 34 44 34 65 65 65 34 44 34 65 65 97 97 34 44 34 66 34 44 34 65 65 65 34 44 34 65 65 65 34 44 34 65 65 65 34 93]
+2023/08/31 21:30:02 List of active user segments.
+2023/08/31 21:30:03 [91 34 66 34 93]
+2023/08/31 21:30:07 List of active user segments.
+2023/08/31 21:30:07 [91 34 66 34 44 34 65 97 97 34 93]
+2023/08/31 21:30:16 List of active user segments.
+2023/08/31 21:30:16 [91 34 65 34 44 34 34 93]
+2023/08/31 21:30:21 List of active user segments.
+2023/08/31 21:30:22 [91 34 66 34 93]
+2023/08/31 21:30:33 List of active user segments.
+2023/08/31 21:30:33 [91 34 66 34 44 34 65 86 73 84 79 95 49 34 93]
+2023/08/31 21:31:39 Watching history of segments.
+2023/08/31 21:31:39 ОШИБКА: неверный синтаксис для типа numeric: "10-10" (SQLSTATE 22P02)
+2023/08/31 21:31:52 Watching history of segments.
+2023/08/31 21:31:52 No records on 2020-10.
+2023/08/31 21:32:28 Watching history of segments.
+2023/08/31 21:32:29 csv history created.
+2023/08/31 21:33:07 Watching csv file.
+2023/08/31 21:33:36 Watching csv file.
+2023/08/31 21:33:36 open pkg/files/history/history2023-10.csv: The system cannot find the file specified.
