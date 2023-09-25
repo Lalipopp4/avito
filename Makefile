@@ -1,3 +1,9 @@
 all:
-	go build -o app.exe ./cmd/app
+	go build -o app ./cmd/app
+	./app
+
+build:
+	go build -o app ./cmd/app
+
+run:
 	./app
