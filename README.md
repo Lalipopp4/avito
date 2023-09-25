@@ -2,13 +2,14 @@
 
 Методы запуска проекта:
 Файл запуска находится в cmd/app
-1.  $ go build -o start.exe ./cmd/app
-    $ ./start
+1.  $ go build -o app ./cmd/app
+    $ ./app
 2.  Запуск Makefile
 
 Используемые фреймворки:
-1.  gorm - контакт с базой данных
-2.  gorilla mux - http router
+1.  github.com/lib/pq
+2.  github.com/redis/go-redis/v9
+3.  github.com/gin-gonic/gin
 Также использовались пакеты из стандартной библиотеки
 
 Примеры запросов к сервису через Postman:
@@ -16,18 +17,18 @@
 2.  ![Alt text](images/image-1.png)
 3.  ![Alt text](images/image-2.png)
 4.  ![Alt text](images/image-3.png)
-5.  ![Alt text](image-1.png)
-6.  ![Alt text](image-2.png)
-7.  ![Alt text](image-3.png)
-8.  ![Alt text](image-4.png)
-9.  ![Alt text](image-5.png)
-10. ![Alt text](image-6.png)
-11. ![Alt text](image-7.png)
-12. ![Alt text](image-8.png)
-13. ![Alt text](image-9.png)
-14. ![Alt text](image-10.png)
-15. ![Alt text](image-11.png)
-16. ![Alt text](image-12.png)
+5.  ![Alt text](images/image-4.png)
+6.  ![Alt text](images/image-5.png)
+7.  ![Alt text](images/image-6.png)
+8.  ![Alt text](images/image-7.png)
+9.  ![Alt text](images/image-8.png)
+10. ![Alt text](images/image-9.png)
+11. ![Alt text](images/image-10.png)
+12. ![Alt text](images/image-11.png)
+13. ![Alt text](images/image-12.png)
+14. ![Alt text](images/image-13.png)
+15. ![Alt text](images/image-14.png)
+16. ![Alt text](images/image-115.png)
 
 База данных:
     users - список пользователей
