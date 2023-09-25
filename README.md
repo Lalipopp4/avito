@@ -28,7 +28,7 @@
 13. ![Alt text](images/image-12.png)
 14. ![Alt text](images/image-13.png)
 15. ![Alt text](images/image-14.png)
-16. ![Alt text](images/image-115.png)
+16. ![Alt text](images/image-15.png)
 
 База данных:
     users - список пользователей
