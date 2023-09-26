@@ -11,6 +11,7 @@
 1.  github.com/lib/pq
 2.  github.com/redis/go-redis/v9
 3.  github.com/gin-gonic/gin
+
 Tакже использовались пакеты из стандартной библиотеки
 
 Примеры запросов к сервису через Postman:
