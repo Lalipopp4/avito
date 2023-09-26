@@ -164,6 +164,7 @@ func (r *repository) GetHistoryByDate(ctx context.Context, date string) ([][4]st
 			wg.Done()
 		}()
 	}
+
 	wg.Wait()
 	return res, nil
 }
@@ -249,4 +250,67 @@ func (r *repository) Get(ctx context.Context, id int, filter bool, extra int) ([
 
 	wg.Wait()
 	return res, nil
+}
+
+func (r *repository) DeleteTTL(ctx context.Context, date string) error {
+
+	rows, err := r.cur.QueryContext(ctx, "SELECT user_id, segment_id FROM user_segments WHERE ttl = $1", date)
+	if err != nil {
+		return err
+	}
+	var (
+		wg, errCtx          = errgroup.WithContext(ctx)
+		mu                  sync.Mutex
+		delete              = [][2]int{}
+		segment_id, user_id int
+	)
+	for rows.Next() {
+		rows.Scan(&segment_id, &user_id)
+		delete = append(delete, [2]int{segment_id, user_id})
+	}
+
+	if len(delete) == 0 {
+		return nil
+	}
+
+	tx, err := r.cur.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+
+	wg.Go(func() error {
+		if errCtx != nil {
+			return errCtx.Err()
+		}
+		_, err = tx.ExecContext(ctx, "DELETE FROM user_segments WHERE ttl = $1", date)
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+
+	for _, val := range delete {
+		segment_id, user_id := val[0], val[1]
+		wg.Go(func() error {
+
+			if errCtx != nil {
+				return errCtx.Err()
+			}
+			mu.Lock()
+			_, err = tx.ExecContext(ctx, `INSERT INTO history (user_id, segment_id, operation, "time")
+             VALUES ($1, $2, $3, $4)`, user_id, segment_id, false, time.Now())
+			mu.Unlock()
+			if err != nil {
+				return err
+			}
+			return nil
+		})
+	}
+
+	if err = wg.Wait(); err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit()
 }

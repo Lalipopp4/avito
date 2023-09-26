@@ -13,4 +13,5 @@ type Repository interface {
 	GetHistoryByDate(ctx context.Context, date string) ([][4]string, error)
 	Get(ctx context.Context, id int, filter bool, extra int) ([]int, error)
 	GetSegmentIdByName(ctx context.Context, name string) (int, error)
+	DeleteTTL(ctx context.Context, date string) error
 }
