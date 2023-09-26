@@ -6,27 +6,19 @@ import (
 	"sync"
 
 	"github.com/Lalipopp4/test_api/internal/models"
+	"golang.org/x/sync/errgroup"
 )
 
 func (s *userService) AddUser(ctx context.Context, user *models.UserRequest) error {
 
 	var (
-		c    = make(chan error)
-		quit = make(chan struct{})
-		wg   sync.WaitGroup
+		wg, errCtx = errgroup.WithContext(ctx)
 	)
-	defer close(c)
-	defer close(quit)
 
 	// checking if there is no intersection of adding and deleting segments
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		select {
-		case <-quit:
-			wg.Done()
-			return
-		default:
+	wg.Go(func() error {
+		if errCtx != nil {
+			return errCtx.Err()
 		}
 		intersection := make(map[string]struct{})
 		for _, segment := range user.SegmentsToAdd {
@@ -34,106 +26,94 @@ func (s *userService) AddUser(ctx context.Context, user *models.UserRequest) err
 		}
 		for _, val := range user.SegmentsToDelete {
 			if _, ok := intersection[val]; ok {
-				c <- errors.New("Intersection in segments to add and delete.")
-				quit <- struct{}{}
-				return
+				return errors.New("Intersection in segments to add and delete.")
 			}
 		}
-	}()
+		return nil
+	})
 
 	// checking if segments from add list doesn't exist
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		for _, segment := range user.SegmentsToAdd {
-
-			select {
-			case <-quit:
-				wg.Done()
-				return
-			default:
+	for _, segment := range user.SegmentsToAdd {
+		segment := segment
+		wg.Go(func() error {
+			if errCtx != nil {
+				return errCtx.Err()
 			}
+
 			exists, err := s.redisRepo.CheckSegments(ctx, segment)
 			if err != nil {
-				c <- err
-				quit <- struct{}{}
-				return
+				return err
 			}
 			if !exists {
-				c <- errors.New("Segment " + segment + " already exists.")
-				quit <- struct{}{}
-				return
+				return errors.New("Segment " + segment + " already exists.")
 			}
-		}
+			return nil
+		})
 
-	}()
+	}
 
 	// checking if segments from delete list exist
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		for _, segment := range user.SegmentsToDelete {
-
-			select {
-			case <-quit:
-				wg.Done()
-				return
-			default:
+	for _, segment := range user.SegmentsToDelete {
+		segment := segment
+		wg.Go(func() error {
+			if errCtx != nil {
+				return errCtx.Err()
 			}
+
 			exists, err := s.redisRepo.CheckSegments(ctx, segment)
 			if err != nil {
-				c <- err
-				quit <- struct{}{}
-				return
+				return err
 			}
 			if exists {
-				c <- errors.New("Segment " + segment + " doesn't exist.")
-				quit <- struct{}{}
-				return
+				return errors.New("Segment " + segment + " doesn't exist.")
 			}
-		}
-	}()
+			return nil
+		})
+	}
 
-	wg.Wait()
-	select {
-	case err := <-c:
+	if err := wg.Wait(); err != nil {
 		return err
-	default:
 	}
 
 	var (
 		segmentsToAdd    = make([]int, len(user.SegmentsToAdd))
 		segmentsToDelete = make([]int, len(user.SegmentsToDelete))
-		errGo, err       error
+		err              error
 	)
 
-	wg.Add(len(user.SegmentsToDelete) + len(user.SegmentsToAdd))
-
 	for i, val := range user.SegmentsToAdd {
-		go func() {
-			defer wg.Done()
+		i, val := i, val
+		wg.Go(func() error {
+
+			if errCtx != nil {
+				return errCtx.Err()
+			}
 			segmentsToAdd[i], err = s.psqlRepo.GetSegmentIdByName(ctx, val)
 			if err != nil {
-				errGo = err
+				return err
 			}
-		}()
+			return nil
+		})
 	}
 
 	for i, val := range user.SegmentsToDelete {
-		go func() {
-			defer wg.Done()
+		i, val := i, val
+		wg.Go(func() error {
+
+			if errCtx != nil {
+				return errCtx.Err()
+			}
 			segmentsToDelete[i], err = s.psqlRepo.GetSegmentIdByName(ctx, val)
 			if err != nil {
-				errGo = err
+				return err
 			}
-
-		}()
+			return nil
+		})
 
 	}
 
-	wg.Wait()
-	if errGo != nil {
-		return errGo
+	if err := wg.Wait(); err != nil {
+		return err
 	}
 
 	// adding user in segments
@@ -149,12 +129,21 @@ func (s *userService) GetSegmentsByUser(ctx context.Context, user *models.User) 
 	if err != nil {
 		return nil, err
 	}
-	segments := make([]string, len(segmentIds))
+	var (
+		segments = make([]string, len(segmentIds))
+		wg       sync.WaitGroup
+	)
+	wg.Add(len(segmentIds))
 	for i, segment := range segmentIds {
-		segments[i], err = s.redisRepo.GetElementById(ctx, segment)
-		if err != nil {
-			return nil, err
-		}
+		defer wg.Done()
+		i, segment := i, segment
+		go func() {
+			segments[i], err = s.redisRepo.GetElementById(ctx, segment)
+			if err != nil {
+				return
+			}
+		}()
 	}
+	wg.Wait()
 	return segments, nil
 }
