@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/Lalipopp4/test_api/internal/models"
+	"golang.org/x/sync/errgroup"
 )
 
 func (r repository) AddSegment(ctx context.Context, segment *models.Segment, users []int) error {
@@ -14,52 +15,62 @@ func (r repository) AddSegment(ctx context.Context, segment *models.Segment, use
 	if err != nil {
 		return err
 	}
+
 	var (
-		txErr error
-		wg    sync.WaitGroup
-		mu    sync.Mutex
+		wg, errCtx = errgroup.WithContext(ctx)
+		mu         sync.Mutex
 	)
 
-	wg.Add(1 + 2*len(users))
-	go func() {
+	wg.Go(func() error {
+		if errCtx != nil {
+			return errCtx.Err()
+		}
 		mu.Lock()
 		_, err = r.cur.ExecContext(ctx, "INSERT INTO segments (name) VALUES ($1)", segment.Name)
 		mu.Unlock()
 		if err != nil {
-			txErr = err
+			return err
 		}
-		wg.Done()
-	}()
+		return nil
+	})
+
 	for _, val := range users {
-		go func() {
+		val := val
+		wg.Go(func() error {
+			if errCtx != nil {
+				return errCtx.Err()
+			}
 			mu.Lock()
 			_, err := tx.ExecContext(ctx, "INSERT INTO user_segments (user_id, segment_id) VALUES ($1, $2)", val, segment.Id)
 			mu.Unlock()
 			if err != nil {
-				txErr = err
+				return err
 			}
-		}()
-		go func() {
+			return nil
+		})
+
+		wg.Go(func() error {
+			if errCtx != nil {
+				return errCtx.Err()
+			}
 			mu.Lock()
 			_, err = tx.ExecContext(ctx, `INSERT INTO history (user_id, segment_id, operation, "time")
 			 VALUES ($1, $2, $3, $4)`, val, segment.Id, true, time.Now())
 			mu.Unlock()
 			if err != nil {
-				txErr = err
+				return err
 			}
-
-		}()
+			return nil
+		})
 
 	}
 
-	wg.Wait()
-	if txErr != nil {
+	if err := wg.Wait(); err != nil {
 		tx.Rollback()
-		return txErr
+		return err
 	}
 
-	tx.Commit()
-	return nil
+	return tx.Commit()
 }
 
 func (r *repository) DeleteSegment(ctx context.Context, segment *models.Segment, users []int) error {
@@ -69,52 +80,59 @@ func (r *repository) DeleteSegment(ctx context.Context, segment *models.Segment,
 	}
 
 	var (
-		txErr error
-		wg    sync.WaitGroup
-		mu    sync.Mutex
+		wg, errCtx = errgroup.WithContext(ctx)
+		mu         sync.Mutex
 	)
 
-	wg.Add(len(users) + 2)
-	go func() {
-		defer wg.Done()
+	wg.Go(func() error {
+		if errCtx != nil {
+			return errCtx.Err()
+		}
 		mu.Lock()
 		_, err = tx.ExecContext(ctx, "DELETE FROM segments WHERE id = $1", segment.Id)
 		mu.Unlock()
 		if err != nil {
-			txErr = err
+			return err
 		}
-	}()
+		return nil
+	})
 
-	go func() {
-		defer wg.Done()
+	wg.Go(func() error {
+		if errCtx != nil {
+			return errCtx.Err()
+		}
 		mu.Lock()
 		_, err = tx.ExecContext(ctx, "DELETE FROM user_segments WHERE segment_id = $1", segment.Id)
 		mu.Unlock()
 		if err != nil {
-			txErr = err
+			return err
 		}
-	}()
+		return nil
+	})
 
 	for _, val := range users {
-		go func() {
-			defer wg.Done()
+		val := val
+		wg.Go(func() error {
+			if errCtx != nil {
+				return errCtx.Err()
+			}
 			mu.Lock()
 			_, err = tx.ExecContext(ctx, `INSERT INTO history (user_id, segment_id, operation, "time")
         	 VALUES ($1, $2, $3, $4)`, val, segment.Id, false, time.Now())
 			mu.Unlock()
 			if err != nil {
-				txErr = err
+				return err
 			}
-		}()
+			return nil
+		})
 	}
 
-	wg.Wait()
-	if txErr != nil {
+	if err = wg.Wait(); err != nil {
 		tx.Rollback()
-		return txErr
+		return err
 	}
-	tx.Commit()
-	return nil
+
+	return tx.Commit()
 }
 
 func (r *repository) GetHistoryByDate(ctx context.Context, date string) ([][4]string, error) {
@@ -124,6 +142,7 @@ func (r *repository) GetHistoryByDate(ctx context.Context, date string) ([][4]st
 	if err != nil {
 		return nil, err
 	}
+
 	var (
 		res               [][4]string
 		userId, segmentId int
@@ -131,6 +150,7 @@ func (r *repository) GetHistoryByDate(ctx context.Context, date string) ([][4]st
 		timestamp, opS    string
 		wg                sync.WaitGroup
 	)
+
 	for rows.Next() {
 		wg.Add(1)
 		go func() {
@@ -154,26 +174,34 @@ func (r *repository) AddUser(ctx context.Context, user *models.UserRequest, segm
 		return err
 	}
 	var (
-		wg sync.WaitGroup
+		wg, errCtx = errgroup.WithContext(ctx)
 	)
-	wg.Add(len(segmentsToAdd) + len(segmentsToDelete))
-	for i, segment := range user.SegmentsToAdd {
-		go func() {
-			defer wg.Done()
-			r.AddSegment(ctx, &models.Segment{Name: segment, Id: segmentsToAdd[i]}, []int{user.Id})
 
-		}()
+	for i, segment := range user.SegmentsToAdd {
+		i, segment := i, segment
+		wg.Go(func() error {
+			if errCtx != nil {
+				return errCtx.Err()
+			}
+			return r.AddSegment(ctx, &models.Segment{Name: segment, Id: segmentsToAdd[i]}, []int{user.Id})
+		})
 	}
 
 	for i, segment := range user.SegmentsToDelete {
-		go func() {
-			defer wg.Done()
-			r.DeleteSegment(ctx, &models.Segment{Name: segment, Id: segmentsToDelete[i]}, []int{user.Id})
-		}()
+		i, segment := i, segment
+		wg.Go(func() error {
+			if errCtx != nil {
+				return errCtx.Err()
+			}
+			return r.DeleteSegment(ctx, &models.Segment{Name: segment, Id: segmentsToDelete[i]}, []int{user.Id})
+		})
+	}
+	if err = wg.Wait(); err != nil {
+		tx.Rollback()
+		return err
 	}
 
-	tx.Commit()
-	return nil
+	return tx.Commit()
 }
 
 func (r *repository) GetSegmentIdByName(ctx context.Context, name string) (int, error) {
@@ -210,11 +238,12 @@ func (r *repository) Get(ctx context.Context, id int, filter bool, extra int) ([
 		wg  sync.WaitGroup
 	)
 	for rows.Next() {
+		wg.Add(1)
 		go func() {
+			defer wg.Done()
 			var temp int
 			rows.Scan(&temp)
 			res = append(res, temp)
-			wg.Done()
 		}()
 	}
 
