@@ -7,6 +7,7 @@ import (
 	"io"
 	"math/rand"
 	"os"
+	"time"
 
 	"github.com/Lalipopp4/test_api/internal/models"
 )
@@ -16,14 +17,15 @@ const (
 )
 
 func (s *segmentService) AddSegment(ctx context.Context, segment *models.Segment) error {
+
+	// checking if segment doesn't exist
 	exists, err := s.redisRepo.CheckSegments(ctx, segment.Name)
 	if err != nil {
-		// logger.Logger.Log(err)
 		return err
 	}
 
 	if exists {
-		return errors.New("Segment " + segment.Name + " already exists")
+		return errors.New("Segment " + segment.Name + " already exists.")
 	}
 
 	// chosing users for this segment
@@ -43,7 +45,7 @@ func (s *segmentService) AddSegment(ctx context.Context, segment *models.Segment
 		}
 	}
 
-	// SQL transaction to insert segment and users
+	// adding segment
 	err = s.psqlRepo.AddSegment(ctx, segment, users)
 	if err != nil {
 		return err
@@ -53,7 +55,7 @@ func (s *segmentService) AddSegment(ctx context.Context, segment *models.Segment
 
 func (s *segmentService) DeleteSegment(ctx context.Context, segment *models.Segment) error {
 
-	//checking if segment doesn't exist
+	//checking if segment exists
 	exists, err := s.redisRepo.CheckSegments(ctx, segment.Name)
 	if err != nil {
 		return err
@@ -62,35 +64,35 @@ func (s *segmentService) DeleteSegment(ctx context.Context, segment *models.Segm
 		return errors.New("Segment " + segment.Name + " doesn't exist.")
 	}
 
-	// SQL transaction to find users in this segment,
-	// delete segment and insert info about deleting users from segment
-	// ------
-
+	// getting segment id
 	segmentId, err := s.psqlRepo.GetSegmentIdByName(ctx, segment.Name)
 	if err != nil {
 		return err
 	}
+
+	// getting users in this segment
 	users, err := s.psqlRepo.Get(ctx, segmentId, false, -1)
 	if err != nil {
 		return err
 	}
-
+	// deleting segment
 	err = s.psqlRepo.DeleteSegment(ctx, segment, users)
 	if err != nil {
 		return err
 	}
-	// ------
 
 	return nil
 }
 
 func (s *segmentService) GetHistoryByDate(ctx context.Context, date *models.Date) (string, error) {
+
+	// getting history by date
 	history, err := s.psqlRepo.GetHistoryByDate(ctx, date.Date)
 	if err != nil {
 		return "", err
 	}
 	if len(history) == 0 {
-		return "", errors.New("No records on " + date.Date)
+		return "", errors.New("No records on " + date.Date + ".")
 	}
 	f, err := os.Create(HISTORYFILEPATH + date.Date + ".csv")
 	defer f.Close()
@@ -121,4 +123,11 @@ func (s *segmentService) GetCSV(ctx context.Context, date string) ([]byte, error
 		data = append(data, temp...)
 	}
 	return data, nil
+}
+
+func (s *segmentService) CheckTTL() {
+	for {
+		s.psqlRepo.DeleteTTL(context.Background(), time.Now().Format(time.DateOnly))
+		time.Sleep(time.Hour * 24)
+	}
 }
